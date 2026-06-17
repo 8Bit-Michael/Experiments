@@ -1,3 +1,4 @@
+from py_compile import main
 import random
 if __name__ == "__main__": #runs everything in this block when we run the file
     def generate_random_number(): # being run multiple times, generating new number 
@@ -27,14 +28,31 @@ if __name__ == "__main__": #runs everything in this block when we run the file
         attempts += 1
         if user_guess == random_number:
             print('correct, you guessed the right number!')
-            print(f'You made {attempts} attempts.')
             break # exit the loop, end the game
         elif user_guess < random_number:
-            print('too low. try again!')
+            if user_guess + 10 == random_number:
+                print('guess within 10 units of correct answer')
+            elif user_guess + 5 == random_number:
+                print('very close, guess withing 5 units of correct answer')
+            else:
+                print('too low. try again!')
             continue # go back to the beginning of the loop
         else: # only other option is guess higher than random number
-            print('too high. try again!')
-            continue # go back to the beginning of the loop  
-    if attempts == max_attempts:
-            print(f'Sorry, you have used all {max_attempts} attempts. The correct number was {random_number}.')
-        
+            if user_guess - 10 == random_number:
+                print('guess within 10 units of correct answer')
+            elif user_guess - 5 == random_number:
+                print('very close, guess withing 5 units of correct answer')
+            else:
+                print('too high. try again!')
+            continue # go back to the beginning of the loop
+    if attempts == max_attempts and user_guess != random_number:
+            print(f'you have used all {max_attempts} attempts. The correct number was {random_number}.')
+    else:
+            print(f'you guessed the number in {attempts} attempts!')
+    redo = input('Do you want to play again? (yes/no): ')
+    if redo.lower() == 'yes':
+        main()
+    elif redo.lower() == 'no':
+        print('Thanks for playing! Goodbye!')
+    else:
+        print('Invalid input. Exiting the game.')
